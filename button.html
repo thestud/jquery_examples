@@ -1,0 +1,42 @@
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>jQuery test</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript">
+
+    function saveMulti(event) {
+          $.post("http://whatever.com/multi-save.php",{ companyid: $("#field").attr("data-companyid"), partid: $("#field").attr("data-partid")  },saveMultiResult);
+    }
+
+    function saveMultiResult(data,status) {
+        if(status == 'success') {
+          document.location.reload(true);
+        } else {
+          alert('webservice call has failed');
+        }
+    }
+
+    function createButton() {
+      var r = $('<input/>').attr({
+                   type: "button",
+                   id: "field",
+                   value: "Update Part",
+                   onclick: "saveMulti(event)",
+                   class: "update"
+              });
+
+
+      $(".container").append(r);
+
+      $("#field").attr("data-companyid","123");
+      $("#field").attr("data-partid","456");
+    }
+
+  </script>
+</head>
+<body>
+  <button onclick="createButton();">Create dynamic button</button><br/> 
+  <div class="container" />
+</body>
+</html>
